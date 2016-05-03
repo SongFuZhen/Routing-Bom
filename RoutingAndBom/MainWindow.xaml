@@ -1,0 +1,183 @@
+﻿<Controls:MetroWindow x:Class="RoutingAndBom.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoutingAndBom"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="Routing &amp; Bom" Height="600" Width="800" 
+        ShowIconOnTitleBar="True" Icon="/assets/logo.png"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Border Margin="20 10 20 0" Background="#32a2da" SnapsToDevicePixels="True" CornerRadius="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Name="WorkStationInfoName" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25" MouseDown="TabClick">工作台信息</Label>
+                <Label Name="PartInfoName" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Margin="-5 0 0 0" FontSize="25" MouseDown="TabClick">零件信息</Label>
+                <Label Name="RoutingName" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" FontSize="25" MouseDown="TabClick">Routing</Label>
+            </Grid>
+        </Border>
+
+        <!--Can Add BorderThickNess-->
+        <Border BorderThickness="0" BorderBrush="#32a2da" Grid.Row="1" Margin="20 10 20 10" CornerRadius="5">
+            <TabControl>
+                <TabItem Name="WorkStationInfo" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="9*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label FontSize="20">工作台列表</Label>
+                            <TextBox Grid.Column="1" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Search"  Margin="20 0 20 0" Padding="0 7 0 0"></TextBox>
+                            <Button Grid.Column="2" Margin="20 0 20 0" MaxWidth="200" Click="New_WorkStation">New</Button>
+                        </Grid>
+
+                        <Border Grid.Row="1" BorderThickness="2" BorderBrush="SteelBlue" CornerRadius="5" Margin="0 5 0 0">
+                            <DataGrid Name="work_station_data_grid" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserResizeColumns="False"
+                                      CellEditEnding="work_station_data_grid_CellEditEnding" PreviewKeyDown="work_station_data_grid_PreviewKeyDown">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn  Header="工作台ID" Width="*" Binding="{Binding work_station_id}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="工作台名称" Width="*" Binding="{Binding work_station_name}"></DataGridTextColumn>
+                                    <!--<DataGridTemplateColumn  Header="操作" Width="*">
+                                        <DataGridTemplateColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                            </Style>
+                                        </DataGridTemplateColumn.HeaderStyle>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button>Edit</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>-->
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Name="PartInfo" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="9*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label FontSize="20">与WMS同步零件数据</Label>
+                            <TextBox Grid.Column="1" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Search"  Margin="20 0 20 0" Padding="0 7 0 0"></TextBox>
+                            <Button Grid.Column="2" FontSize="18" Margin="20 0 20 0" MaxWidth="200" Click="Async_Part_Info">从WMS上同步零件数据</Button>
+                        </Grid>
+
+                        <Border Grid.Row="1" BorderThickness="2" BorderBrush="SteelBlue" CornerRadius="5" Margin="0 5 0 0">
+                            <DataGrid Name="part_info_data_grid" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserResizeColumns="False"
+                                      CellEditEnding="work_station_data_grid_CellEditEnding" PreviewKeyDown="work_station_data_grid_PreviewKeyDown">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn  Header="零件号" Width="*" Binding="{Binding partNr}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="零件描述" Width="*" Binding="{Binding partDescription}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="零件类型" Width="*" Binding="{Binding partType}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Name="Routing" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="9*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label FontSize="20">RoutingList</Label>
+                            <TextBox Grid.Column="1" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Search"  Margin="20 0 20 0" Padding="0 7 0 0"></TextBox>
+                            <Button Grid.Column="2" FontSize="18" Margin="20 0 20 0" MaxWidth="200" Click="New_Routing">New</Button>
+                        </Grid>
+
+                        <Border Grid.Row="1" BorderThickness="2" BorderBrush="SteelBlue" CornerRadius="5" Margin="0 5 0 0">
+                            <DataGrid Name="routing_data_grid" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="True" CanUserResizeColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn  Header="作业指导书编号" Width="*" Binding="{Binding Nr}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="产品名称" Width="*" Binding="{Binding ProductName}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="工作台号" Width="*" Binding="{Binding WorkStationNr}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="状态" Width="*" Binding="{Binding Status}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Release" Width="*" Binding="{Binding Release}"></DataGridTextColumn>
+                                  
+                                    <DataGridTemplateColumn  Header="BOM表" Width="*">
+                                        <DataGridTemplateColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                            </Style>
+                                        </DataGridTemplateColumn.HeaderStyle>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button>BOM表</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridTemplateColumn  Header="详情" Width="*">
+                                        <DataGridTemplateColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                            </Style>
+                                        </DataGridTemplateColumn.HeaderStyle>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button>详细</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridTemplateColumn  Header="打印" Width="*">
+                                        <DataGridTemplateColumn.HeaderStyle>
+                                            <Style TargetType="DataGridColumnHeader">
+                                                <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                            </Style>
+                                        </DataGridTemplateColumn.HeaderStyle>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button>打印</Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</Controls:MetroWindow>
