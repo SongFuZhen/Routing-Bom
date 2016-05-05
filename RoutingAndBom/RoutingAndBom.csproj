@@ -71,6 +71,7 @@
       <DependentUpon>RoutingInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="routing_date.cs" />
+    <Compile Include="routing_info_data.cs" />
     <Compile Include="station_cb_data.cs" />
     <Compile Include="WorkStationNewDialog.xaml.cs">
       <DependentUpon>WorkStationNewDialog.xaml</DependentUpon>

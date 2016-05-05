@@ -20,6 +20,8 @@ namespace RoutingAndBom
     /// </summary>
     public partial class RoutingInfo : MetroWindow
     {
+        public string EPBA { get; set; }
+
         public RoutingInfo()
         {
             InitializeComponent();
@@ -51,6 +53,20 @@ namespace RoutingAndBom
             sp.Children.Add(part_amount_tb);
 
             Part_StackPanel.Children.Add(sp);
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (EPBA != null)
+            {
+                routing_info_nr.Text = EPBA;
+                Routing_Info_Title.IsEnabled = false;
+                RoutingInfoBtn.Visibility = Visibility.Hidden;
+                image.Visibility = Visibility.Hidden;
+                CreateBtnRange.Visibility = Visibility.Hidden;
+                PartGroup.MaxHeight = 400;
+                PartGroup.IsEnabled = false;
+            }
         }
     }
 }

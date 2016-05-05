@@ -148,5 +148,14 @@ namespace RoutingAndBom
             RoutingInfo ri = new RoutingInfo();
             ri.ShowDialog();
         }
+
+        private void Show_Detail(object sender, RoutedEventArgs e)
+        {
+            string Nr = (sender as Button).Tag.ToString();
+
+            RoutingInfo ri = new RoutingInfo();
+            ri.EPBA = Nr;
+            ri.ShowDialog();
+        }
     }
 }

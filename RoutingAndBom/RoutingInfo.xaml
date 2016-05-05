@@ -6,34 +6,47 @@
         xmlns:local="clr-namespace:RoutingAndBom"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="RoutingInfo" Height="400" Width="600">
-    <Grid>
+        Title="RoutingInfo" Height="500" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+    <Grid Name="Routing_Info_Grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+        <Border BorderThickness="0 0 0 1" BorderBrush="#32a2da" Name="Routing_Info_Title">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <Label>输入零件号</Label>
-                <TextBox MinWidth="200"></TextBox>
-            </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label>指导书编号</Label>
+                    <TextBox MinWidth="150" Name="routing_info_nr"></TextBox>
+                </StackPanel>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Label>选择工作台</Label>
-                <ComboBox Name="WorkStationCB" Width="200"></ComboBox>
-            </StackPanel>
-        </Grid>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label>零件号</Label>
+                    <TextBox MinWidth="150"></TextBox>
+                </StackPanel>
 
-        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <ScrollViewer MaxHeight="500">
-                <StackPanel Orientation="Vertical">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label>工作台</Label>
+                    <ComboBox Name="WorkStationCB" Width="150"></ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <ScrollViewer MaxHeight="200" Name="PartGroup">
                     <StackPanel Orientation="Vertical" Name="Part_StackPanel">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock>零件号</TextBlock>
@@ -50,7 +63,7 @@
                             <TextBlock Margin="20 0 0 0">该零件数量</TextBlock>
                             <TextBox MinWidth="200" Height="20"></TextBox>
                         </StackPanel>
-
+    
                         <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
                             <TextBlock>零件号</TextBlock>
                             <TextBox MinWidth="200" Height="20"></TextBox>
@@ -59,24 +72,38 @@
                             <TextBox MinWidth="200" Height="20"></TextBox>
                         </StackPanel>
                     </StackPanel>
-                    <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Click="RoutingInfoAddBtn">
-                        <Rectangle Width="20" Height="20" Fill="{DynamicResource BlackBrush}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
-            </ScrollViewer>
+                </ScrollViewer>
+                <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Click="RoutingInfoAddBtn">
+                    <Rectangle Width="20" Height="20" Fill="{DynamicResource BlackBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>-->
+
+                <Button Width="30" Height="30" Name="RoutingInfoBtn" Click="RoutingInfoAddBtn" VerticalAlignment="Bottom">
+                    <Rectangle Width="15" Height="15" Fill="{DynamicResource BlackBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="0 10 0 10">
+                <Image Source="/assets/logo.png" Width="500" Height="160" Name="image"></Image>
+            </Grid>
         </Grid>
-        
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Margin="0 10 0 0" Name="CreateBtn" FontSize="13">Create</Button>
-        </Grid>
+
+        <Border Grid.Row="2" Name="CreateBtnRange" BorderThickness="0 1 0 0" BorderBrush="#32a2da">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Margin="5" Width="200" Name="CreateBtn" FontSize="13">Create</Button>
+            </Grid>
+        </Border>
     </Grid>
 </Controls:MetroWindow>
