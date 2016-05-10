@@ -1,0 +1,103 @@
+﻿<Controls:MetroWindow x:Class="RoutingAndBom.RoutingDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoutingAndBom"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="RoutingDetail" Height="500" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border BorderThickness="0 0 0 1" BorderBrush="#32a2da">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right">描述</Label>
+                <TextBox Grid.Column="1" Margin="10" Name="RoutingDescription"></TextBox>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="8*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Label HorizontalAlignment="Center" FontSize="16">料号</Label>
+            <Label Grid.Column="1" HorizontalAlignment="Center" FontSize="16">规格</Label>
+            <Label Grid.Column="2" HorizontalAlignment="Center" FontSize="16">数量</Label>
+            <Button Grid.Column="2" Width="30" Height="30" Name="AddPart" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0" Click="AddPart_Click">
+                <Rectangle Width="15" Height="15" Fill="SteelBlue">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            
+            <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" MaxHeight="150">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Name="PN" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" Name="Standard" HorizontalAlignment="Center">
+                       
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Name="Quantity" HorizontalAlignment="Center">
+                        
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Row="2" BorderThickness="0 1 0 1" BorderBrush="#32a2da">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Name="ImageUrl" HorizontalAlignment="Center" VerticalAlignment="Center">请点击按钮选择图片</Label>
+                
+                <Image Grid.Row="1" Margin="10" Name="ShowImage"></Image>
+
+                <Button Grid.Column="1" Width="30" Height="30" Margin="0 0 10 0" Name="UploadImage" VerticalAlignment="Top" HorizontalAlignment="Right" Click="UploadImage_Click">
+                    <Rectangle Width="15" Height="15" Fill="SteelBlue">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cabinet_out}"></VisualBrush>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="SaveAsTemplate" FontSize="20" VerticalAlignment="Center" MaxWidth="200" MaxHeight="60" Click="SaveAsTemplate_Click" >保存为模板</Button>
+            <Button Name="Finish" Grid.Column="1" FontSize="20" VerticalAlignment="Center" MaxWidth="200" MaxHeight="60" Click="Finish_Routing">完成</Button>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

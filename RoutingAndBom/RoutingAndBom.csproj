@@ -67,12 +67,16 @@
       <DependentUpon>AsyncPart.xaml</DependentUpon>
     </Compile>
     <Compile Include="part_data.cs" />
+    <Compile Include="RoutingDetail.xaml.cs">
+      <DependentUpon>RoutingDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoutingInfo.xaml.cs">
       <DependentUpon>RoutingInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="routing_date.cs" />
     <Compile Include="routing_info_data.cs" />
     <Compile Include="station_cb_data.cs" />
+    <Compile Include="template_date.cs" />
     <Compile Include="WorkStationNewDialog.xaml.cs">
       <DependentUpon>WorkStationNewDialog.xaml</DependentUpon>
     </Compile>
@@ -100,6 +104,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RoutingDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RoutingInfo.xaml">
       <SubType>Designer</SubType>

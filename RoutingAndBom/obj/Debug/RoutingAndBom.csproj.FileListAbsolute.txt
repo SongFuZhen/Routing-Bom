@@ -52,3 +52,5 @@ E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\WorkStationNew
 E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\RoutingAndBom.g.resources
 E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\RoutingAndBom.Properties.Resources.resources
 E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\RoutingAndBom.csproj.GenerateResource.Cache
+E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\RoutingDetail.g.cs
+E:\Song\Documents\Routing&Bom\Routing-Bom\RoutingAndBom\obj\Debug\RoutingDetail.baml

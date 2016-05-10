@@ -6,9 +6,16 @@
         xmlns:local="clr-namespace:RoutingAndBom"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="RoutingInfo" Height="500" Width="700" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+        Title="RoutingInfo" Height="500" Width="700" 
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="0" 
+        GlowBrush="Black"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False">
+    
     <Grid Name="Routing_Info_Grid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="7*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -38,72 +45,104 @@
                 </StackPanel>
             </Grid>
         </Border>
-        
-        <Grid Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 15 0 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal">
-                <ScrollViewer MaxHeight="200" Name="PartGroup">
-                    <StackPanel Orientation="Vertical" Name="Part_StackPanel">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock>零件号</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Center" FontSize="20" Margin="10 0 0 0">RoutingList</Label>
+            <TextBox Grid.Column="1" MaxWidth="200" MinWidth="150" VerticalAlignment="Center"></TextBox>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                            <TextBlock Margin="20 0 0 0">该零件数量</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock>零件号</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
-
-                            <TextBlock Margin="20 0 0 0">该零件数量</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
-                        </StackPanel>
-    
-                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                            <TextBlock>零件号</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
-
-                            <TextBlock Margin="20 0 0 0">该零件数量</TextBlock>
-                            <TextBox MinWidth="200" Height="20"></TextBox>
-                        </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
-                <!--<Button Style="{DynamicResource MetroCircleButtonStyle}" Width="50" Height="50" Click="RoutingInfoAddBtn">
-                    <Rectangle Width="20" Height="20" Fill="{DynamicResource BlackBrush}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                </Button>-->
-
-                <Button Width="30" Height="30" Name="RoutingInfoBtn" Click="RoutingInfoAddBtn" VerticalAlignment="Bottom">
-                    <Rectangle Width="15" Height="15" Fill="{DynamicResource BlackBrush}">
+                <Button Width="80" Height="30" Name="NewRouting" VerticalAlignment="Center" HorizontalAlignment="Center" Click="NewRouting_Click">
+                    <Rectangle Width="15" Height="15" Fill="Green">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add}"></VisualBrush>
                         </Rectangle.OpacityMask>
                     </Rectangle>
                 </Button>
-            </StackPanel>
 
-            <Grid Grid.Row="1" Margin="0 10 0 10">
-                <Image Source="/assets/logo.png" Width="500" Height="160" Name="image"></Image>
+                <Grid Grid.Column="1">
+                    <Controls:SplitButton Name="TemplateSplit"
+                                          Height="30"
+                                          Width="200"
+                                          HorizontalAlignment="Center"
+                                          HorizontalContentAlignment="Left"
+                                          DisplayMemberPath="content"
+                                          SelectedIndex="0" SelectionChanged="TemplateSplit_SelectionChanged">
+                    </Controls:SplitButton>
+                </Grid>
             </Grid>
         </Grid>
 
-        <Border Grid.Row="2" Name="CreateBtnRange" BorderThickness="0 1 0 0" BorderBrush="#32a2da">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Margin="5" Width="200" Name="CreateBtn" FontSize="13">Create</Button>
-            </Grid>
-        </Border>
+        <Grid Grid.Row="2">
+            <Border BorderThickness="2" BorderBrush="SteelBlue" CornerRadius="5" Margin="10 0 10 10">
+                <DataGrid Name="routing_list_data_grid" HeadersVisibility="Column" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn  Header="序号" Width="*" Binding="{Binding Nr}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="制造程序说明" Width="6*" Binding="{Binding ProductName}"></DataGridTextColumn>
+
+                        <DataGridTemplateColumn  Header="操作" Width="3*">
+                            <DataGridTemplateColumn.HeaderStyle> 
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                                </Style>
+                            </DataGridTemplateColumn.HeaderStyle>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Button Width="40" Height="30" Name="ShowRouting" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="{Binding Nr}">
+                                            <Rectangle Width="15" Height="15" Fill="Green">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_eye}"></VisualBrush>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+
+                                        <Button Grid.Column="1" Width="40" Height="30" Name="EditRouting" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="{Binding Nr}" Margin="10 0 0 0">
+                                            <Rectangle Width="15" Height="15" Fill="Purple">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}"></VisualBrush>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+
+                                        <Button Grid.Column="2" Width="40" Height="30" Name="DeleteRouting" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="{Binding Nr}" Margin="10 0 0 0">
+                                            <Rectangle Width="15" Height="15" Fill="Red">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_axis_x_letter}"></VisualBrush>
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="1" MaxWidth="200" MaxHeight="60" Margin="5">Create</Button>
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
